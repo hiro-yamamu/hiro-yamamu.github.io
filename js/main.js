@@ -1,13 +1,15 @@
-// ---------- Language toggle (ja / en) ----------
+// ---------- Language switching (ja / en) ----------
+// The HTML ships with <body class="lang-ja"> so the page reads fine without JS.
 (function () {
-  var STORAGE_KEY = 'site-lang';
+  var KEY = 'site-lang';
   var body = document.body;
-  var toggle = document.getElementById('lang-toggle');
-  var opts = toggle ? toggle.querySelectorAll('.lang-opt') : [];
+  var buttons = document.querySelectorAll('.lang-btn');
 
-  function detectDefault() {
+  function initial() {
+    var q = /[?&]lang=(ja|en)/.exec(location.search);
+    if (q) return q[1];
     try {
-      var saved = localStorage.getItem(STORAGE_KEY);
+      var saved = localStorage.getItem(KEY);
       if (saved === 'ja' || saved === 'en') return saved;
     } catch (e) { /* ignore */ }
     var nav = (navigator.language || 'ja').toLowerCase();
@@ -18,19 +20,17 @@
     body.classList.remove('lang-ja', 'lang-en');
     body.classList.add('lang-' + lang);
     document.documentElement.setAttribute('lang', lang);
-    for (var i = 0; i < opts.length; i++) {
-      opts[i].classList.toggle('active', opts[i].getAttribute('data-lang') === lang);
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute('aria-pressed', buttons[i].getAttribute('data-lang') === lang ? 'true' : 'false');
     }
-    try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* ignore */ }
+    try { localStorage.setItem(KEY, lang); } catch (e) { /* ignore */ }
   }
 
-  var current = detectDefault();
-  setLang(current);
+  setLang(initial());
 
-  if (toggle) {
-    toggle.addEventListener('click', function () {
-      current = current === 'ja' ? 'en' : 'ja';
-      setLang(current);
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function () {
+      setLang(this.getAttribute('data-lang'));
     });
   }
 })();
@@ -42,27 +42,36 @@
 })();
 
 // ---------- YouTube click-to-load embeds ----------
-// <div class="video" data-yt="VIDEO_ID" data-title="optional caption"></div>
+// <div class="video" data-yt="VIDEO_ID" data-title="caption"></div>
 (function () {
   var slots = document.querySelectorAll('.video[data-yt]');
   for (var i = 0; i < slots.length; i++) {
     (function (slot) {
       var id = slot.getAttribute('data-yt');
       var title = slot.getAttribute('data-title') || 'Video';
+
+      var poster = slot.getAttribute('data-poster');
       var thumb = document.createElement('img');
-      thumb.src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
-      thumb.alt = title;
-      thumb.loading = 'lazy';
+      thumb.alt = '';
+      if (poster) {
+        thumb.src = poster;
+      } else {
+        thumb.src = 'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg';
+        thumb.onload = function () {
+          // YouTube returns a 120x90 placeholder when maxres does not exist
+          if (thumb.naturalWidth < 200) thumb.src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+        };
+        thumb.onerror = function () { thumb.src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg'; };
+      }
+
       var btn = document.createElement('button');
       btn.className = 'video-play';
       btn.type = 'button';
-      btn.setAttribute('aria-label', 'Play ' + title);
-      var cap = document.createElement('span');
-      cap.className = 'video-title';
-      cap.textContent = title;
+      btn.setAttribute('aria-label', 'Play: ' + title);
+
       slot.appendChild(thumb);
       slot.appendChild(btn);
-      slot.appendChild(cap);
+
       btn.addEventListener('click', function () {
         var iframe = document.createElement('iframe');
         iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
