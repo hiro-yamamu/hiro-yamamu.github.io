@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hiroo Yamamura</title>
-  <meta name="description" content="Hiroo Yamamura (山村 浩穂) — Body ownership and human augmentation in virtual reality. RCAST, The University of Tokyo / Keio University.">
+  <meta name="description" content="Hiroo Yamamura (山村 浩穂) — VR, non-human bodies, kemonomimi, body ownership and human augmentation. RCAST, The University of Tokyo / Keio University.">
   <link rel="canonical" href="https://hiro-yamamu.github.io/">
   <meta property="og:title" content="Hiroo Yamamura">
-  <meta property="og:description" content="Body ownership and human augmentation in virtual reality. Necomimi Illusion, DeepBreathVR, HemodynamicVR.">
+  <meta property="og:description" content="VR / Non-human bodies / Kemonomimi / Body ownership / Human augmentation. Necomimi Illusion, DeepBreathVR, HemodynamicVR.">
   <meta property="og:image" content="https://hiro-yamamu.github.io/img/necomimi_poster.jpg">
   <meta property="og:url" content="https://hiro-yamamu.github.io/">
   <meta property="og:type" content="website">
@@ -57,12 +57,24 @@
   <section id="home" class="hero">
     <div class="container">
       <div class="hero-inner">
-        <img class="avatar" src="img/profile.jpg" alt="" width="96" height="96">
+        <div class="avatar-wrap" aria-hidden="true">
+          <svg class="ears" viewBox="0 0 120 60" width="120" height="60">
+            <path d="M14 58 L22 6 Q24 0 29 4 L62 36 Z" fill="#cfe3ec"/>
+            <path d="M22 50 L27 16 L50 38 Z" fill="#f4d7e3"/>
+            <path d="M106 58 L98 6 Q96 0 91 4 L58 36 Z" fill="#d7c9f5"/>
+            <path d="M98 50 L93 16 L70 38 Z" fill="#f4d7e3"/>
+          </svg>
+          <img class="avatar" src="img/profile.jpg" alt="" width="96" height="96">
+          <svg class="tail" viewBox="0 0 60 80" width="48" height="64">
+            <path d="M8 4 C-4 30 30 30 26 52 C22 72 44 82 58 66" fill="none" stroke="#b8f2e6" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+        </div>
         <div class="hero-text">
           <h1>Hiroo Yamamura</h1>
-          <p class="tagline">
-            <span class="ja">バーチャルリアリティにおける身体所有感と身体拡張の研究</span>
-            <span class="en">Body ownership and human augmentation in virtual reality</span>
+          <p class="fields">
+            <span class="fields-label"><span class="ja">専門分野</span><span class="en">Research fields</span></span>
+            <span class="ja">VR ／ 非人間的身体 ／ ケモミミ ／ 身体所有感 ／ 身体拡張</span>
+            <span class="en">VR / Non-human bodies / Kemonomimi / Body ownership / Human augmentation</span>
           </p>
           <ul class="profile-links">
             <li><a href="https://scholar.google.co.jp/citations?user=Hja_1qMAAAAJ&hl=ja&oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
@@ -115,7 +127,7 @@
           <p class="en">Detects breathing with only the Meta Quest 3 controllers; stars in a VRChat world glow with each breath. The sensor-free approach is being extended to estimating physical function in older adults.</p>
           <ul class="chips">
             <li class="chip chip-award"><span class="ja">EC2025 レコメンデモ賞</span><span class="en">Recommended Demo Award, EC2025</span></li>
-            <li class="chip"><span class="ja">日本VR学会大会 2026（口頭）</span><span class="en">VRSJ 2026 (Oral)</span></li>
+            <li class="chip"><span class="ja">日本VR学会大会 2026</span><span class="en">VRSJ 2026</span></li>
           </ul>
         </article>
 
@@ -138,8 +150,7 @@
           <p class="en">A wearable fNIRS device integrated with an HMD detects cybersickness and adaptively narrows the field of view without breaking immersion.</p>
           <ul class="chips">
             <li class="chip"><a href="https://doi.org/10.1145/3458709.3458994" target="_blank" rel="noopener">Augmented Humans 2021</a></li>
-            <li class="chip"><a href="https://doi.org/10.1145/3379350.3416184" target="_blank" rel="noopener">UIST 2020 Adjunct</a></li>
-            <li class="chip"><a href="https://doi.org/10.1145/3460421.3478824" target="_blank" rel="noopener">ISWC 2021</a></li>
+            <li class="chip"><a href="https://doi.org/10.1145/3379350.3416184" target="_blank" rel="noopener">UIST 2020</a></li>
           </ul>
         </article>
 
@@ -150,8 +161,8 @@
           <p class="ja">カメラと機械学習ボードで表情を分析し、感情に対応したマンガ記号（怒りマーク、音符など）をロボットアームで頭上に描画します。</p>
           <p class="en">A camera and ML board read the wearer's expression, and a robotic arm draws matching manga iconography (anger mark, musical note) above their head.</p>
           <ul class="chips">
-            <li class="chip chip-award">UIST 2019 SIC — Jury's Choice Honorable Mention</li>
-            <li class="chip chip-award">UIST 2019 SIC — People's Choice Honorable Mention</li>
+            <li class="chip chip-award"><a href="https://uist.acm.org/uist2019/" target="_blank" rel="noopener">UIST 2019 SIC — Jury's Choice Honorable Mention</a></li>
+            <li class="chip chip-award"><a href="https://uist.acm.org/uist2019/" target="_blank" rel="noopener">UIST 2019 SIC — People's Choice Honorable Mention</a></li>
           </ul>
         </article>
       </div>
@@ -167,28 +178,28 @@
 
       <h3 class="pub-category"><span class="ja">学術論文</span><span class="en">Journal Articles</span></h3>
       <ol class="pub-list">
-        <li><b>H. Yamamura</b>, R. Kondo, K. Sakurada, J.-M. Normand, M. Sugimoto, "The imaginary cat ears illusion: an analysis of ownership for an avatar's cat ears via visual–auditory–haptic multimodal feedback in virtual reality," <i>Frontiers in Virtual Reality</i>, vol. 7, 2026. <a href="https://doi.org/10.3389/frvir.2026.1817800" target="_blank" rel="noopener">DOI</a> <a href="https://www.frontiersin.org/journals/virtual-reality/articles/10.3389/frvir.2026.1817800/full" target="_blank" rel="noopener">Full text</a></li>
+        <li><b>Hiroo Yamamura</b>, Ryota Kondo, Kuniharu Sakurada, Jean-Marie Normand, Maki Sugimoto, "The imaginary cat ears illusion: an analysis of ownership for an avatar's cat ears via visual–auditory–haptic multimodal feedback in virtual reality," <i>Frontiers in Virtual Reality</i>, vol. 7, 2026. <a href="https://doi.org/10.3389/frvir.2026.1817800" target="_blank" rel="noopener">DOI</a> <a href="https://www.frontiersin.org/journals/virtual-reality/articles/10.3389/frvir.2026.1817800/full" target="_blank" rel="noopener">Full text</a></li>
         <li><b>山村 浩穂</b>, 近藤 亮太, 杉本 麻樹, "Necomimi Illusion: アバターの猫耳と連動する毛髪を通じた触覚フィードバックによる所有感生成," <i>日本バーチャルリアリティ学会論文誌</i>, vol. 30, no. 1, 2025. <a href="https://doi.org/10.18974/tvrsj.30.1_13" target="_blank" rel="noopener">DOI</a></li>
       </ol>
 
       <h3 class="pub-category"><span class="ja">国際会議</span><span class="en">International Conferences</span></h3>
       <ol class="pub-list">
-        <li><b>H. Yamamura</b>, R. Kondo, K. Sakurada, J.-M. Normand, M. Sugimoto, "Exploring Ownership of an Avatar's Cat Ears through Visual, Auditory, and Haptic Multimodal Feedback," <i>ICAT-EGVE 2025</i>, Poster, 2025.</li>
-        <li><b>H. Yamamura</b>, R. Kondo, M. Sugimoto, "Necomimi illusion: Generating Ownership of Cat Ears through Haptic Feedback via Hair," <i>SIGGRAPH Asia 2024 XR (SA '24)</i>, Article 13, pp. 1–2, 2024. <a href="https://doi.org/10.1145/3681759.3688923" target="_blank" rel="noopener">DOI</a></li>
-        <li>Q. Zhang, <b>H. Yamamura</b>, H. Baldauf, D. Zheng, K. Chen, J. Yamaoka, K. Kunze, "Tunnel Vision – Dynamic Peripheral Vision Blocking Glasses for Reducing Motion Sickness Symptoms," <i>ISWC '21</i>, pp. 48–52, 2021. <a href="https://doi.org/10.1145/3460421.3478824" target="_blank" rel="noopener">DOI</a></li>
-        <li><b>H. Yamamura</b>, H. Baldauf, K. Kunze, "HemodynamicVR – Adapting the User's Field Of View during Virtual Reality Locomotion Tasks to Reduce Cybersickness Using Wearable Functional Near-Infrared Spectroscopy," <i>Augmented Humans 2021 (AHs '21)</i>, Short paper, pp. 223–227, 2021. <a href="https://doi.org/10.1145/3458709.3458994" target="_blank" rel="noopener">DOI</a> <a href="https://kaikunze.de/papers/pdf/yamamura2021hemodynamicvr.pdf" target="_blank" rel="noopener">PDF</a></li>
-        <li><b>H. Yamamura</b>, H. Baldauf, K. Kunze, "Pleasant Locomotion – Towards Reducing Cybersickness using fNIRS during Walking Events in VR," <i>UIST '20 Adjunct</i>, Poster, pp. 56–58, 2020. <a href="https://doi.org/10.1145/3379350.3416184" target="_blank" rel="noopener">DOI</a></li>
-        <li>K. Tsuchiya, <b>H. Yamamura</b>, D. Yamamoto, "MANPU-Wear: Emotional Expression Method Augmented by Manga Iconography," <i>UIST '19 Student Innovation Contest</i>, 2019.</li>
+        <li><b>Hiroo Yamamura</b>, Ryota Kondo, Kuniharu Sakurada, Jean-Marie Normand, Maki Sugimoto, "Exploring Ownership of an Avatar's Cat Ears through Visual, Auditory, and Haptic Multimodal Feedback," <i>ICAT-EGVE 2025</i>, Poster, 2025.</li>
+        <li><b>Hiroo Yamamura</b>, Ryota Kondo, Maki Sugimoto, "Necomimi illusion: Generating Ownership of Cat Ears through Haptic Feedback via Hair," <i>SIGGRAPH Asia 2024 XR (SA '24)</i>, Article 13, pp. 1–2, 2024. <a href="https://doi.org/10.1145/3681759.3688923" target="_blank" rel="noopener">DOI</a></li>
+        <li>Qing Zhang, <b>Hiroo Yamamura</b>, Holger Baldauf, Dingding Zheng, Kanyu Chen, Junichi Yamaoka, Kai Kunze, "Tunnel Vision – Dynamic Peripheral Vision Blocking Glasses for Reducing Motion Sickness Symptoms," <i>ISWC '21</i>, pp. 48–52, 2021. <a href="https://doi.org/10.1145/3460421.3478824" target="_blank" rel="noopener">DOI</a></li>
+        <li><b>Hiroo Yamamura</b>, Holger Baldauf, Kai Kunze, "HemodynamicVR – Adapting the User's Field Of View during Virtual Reality Locomotion Tasks to Reduce Cybersickness Using Wearable Functional Near-Infrared Spectroscopy," <i>Augmented Humans 2021 (AHs '21)</i>, Short paper, pp. 223–227, 2021. <a href="https://doi.org/10.1145/3458709.3458994" target="_blank" rel="noopener">DOI</a> <a href="https://kaikunze.de/papers/pdf/yamamura2021hemodynamicvr.pdf" target="_blank" rel="noopener">PDF</a></li>
+        <li><b>Hiroo Yamamura</b>, Holger Baldauf, Kai Kunze, "Pleasant Locomotion – Towards Reducing Cybersickness using fNIRS during Walking Events in VR," <i>UIST '20 Adjunct</i>, Poster, pp. 56–58, 2020. <a href="https://doi.org/10.1145/3379350.3416184" target="_blank" rel="noopener">DOI</a></li>
+        <li>Keitaro Tsuchiya, <b>Hiroo Yamamura</b>, Daisuke Yamamoto, "MANPU-Wear: Emotional Expression Method Augmented by Manga Iconography," <i>UIST '19 Student Innovation Contest</i>, 2019.</li>
       </ol>
 
       <h3 class="pub-category"><span class="ja">国内会議</span><span class="en">Domestic Conferences</span></h3>
       <ol class="pub-list">
         <li><b>山村 浩穂</b>, 佐々木 智也, 宮﨑 敦子, 檜山 敦, "VRコントローラを用いた呼吸計測による高齢者の身体機能推定の探索的検討," <i>第31回 日本バーチャルリアリティ学会大会</i>, 口頭, 2026.</li>
-        <li>A. Miyazaki, T. Sasaki, <b>H. Yamamura</b>, H. Mori, K. Ueki, K. Yamaguchi, H. Tohara, A. Hiyama, "VR Fukiya: A Novel 'Just Blow' Approach for Dysphagia Rehabilitation in Older Adults – A Randomized Controlled Trial in Day-Care Services," <i>第31回 日本摂食嚥下リハビリテーション学会学術大会</i>, 2025.</li>
+        <li>Atsuko Miyazaki, Tomoya Sasaki, <b>Hiroo Yamamura</b>, Hayato Mori, Kaori Ueki, Kohei Yamaguchi, Haruka Tohara, Atsushi Hiyama, "VR Fukiya: A Novel 'Just Blow' Approach for Dysphagia Rehabilitation in Older Adults – A Randomized Controlled Trial in Day-Care Services," <i>第31回 日本摂食嚥下リハビリテーション学会学術大会</i>, 2025.</li>
         <li>宮﨑 敦子, 佐々木 智也, <b>山村 浩穂</b>, 戸原 玄, 山口 浩平, 浅井 龍太, 木村 信之, 佐藤 洋, 松村 貴光, 柴田 成, 江畑 遼祐, 檜山 敦, "インタラクティブ・セラピーとその社会実装," <i>第30回 日本バーチャルリアリティ学会大会</i>, 2025.</li>
         <li><b>山村 浩穂</b>, 佐々木 智也, 宮﨑 敦子, 檜山 敦, "DeepBreathVR: 腹部の体動に着目した深呼吸インタラクションの提案," <i>情報処理学会 エンタテインメントコンピューティング2025</i>, 2025.</li>
         <li>宮﨑 敦子, 佐々木 智也, <b>山村 浩穂</b>, 森 隼人, 植木 佳緒里, 木村 信之, 山口 浩平, 戸原 玄, 檜山 敦, "VR吹き矢による高齢者の肺年齢改善効果とその定量化," <i>第21回 日本神経摂食嚥下・栄養学会学術集会</i>, 2025.</li>
-        <li>A. Miyazaki, T. Sasaki, <b>H. Yamamura</b>, H. Mori, K. Ueki, K. Yamaguchi, H. Tohara, A. Hiyama, "Comparative Study of Two Virtual Reality Interventions (VR Travel and VR Fukiya) on Visuospatial Cognitive Functions in Older Adults: Assessment Challenges in Dementia," <i>第48回 日本神経科学学会大会</i>, 2025.</li>
+        <li>Atsuko Miyazaki, Tomoya Sasaki, <b>Hiroo Yamamura</b>, Hayato Mori, Kaori Ueki, Kohei Yamaguchi, Haruka Tohara, Atsushi Hiyama, "Comparative Study of Two Virtual Reality Interventions (VR Travel and VR Fukiya) on Visuospatial Cognitive Functions in Older Adults: Assessment Challenges in Dementia," <i>第48回 日本神経科学学会大会</i>, 2025.</li>
         <li><b>山村 浩穂</b>, 杉本 麻樹, "髪の毛の形状変化による身体拡張体験の提案," <i>第28回 日本バーチャルリアリティ学会大会</i>, 2023.</li>
         <li><b>山村 浩穂</b>, 杉本 麻樹, "Necomimi Illusion: アバタの猫耳と連動する髪の毛を通じた触覚フィードバックの提案," <i>情報処理学会 エンタテインメントコンピューティング2023</i>, 2023.</li>
         <li>大髙 真由, <b>山村 浩穂</b>, 加藤 大弥, 砂原 秀樹, "美術作品の関連情報をなめらかに繋げる美術鑑賞支援ツール," <i>情報処理学会 エンタテインメントコンピューティングシンポジウム2023</i>, 2023.</li>
@@ -203,8 +214,8 @@
       <ul class="row-list">
         <li><span class="row-year">2025</span><span><span class="ja">情報処理学会 エンタテインメントコンピューティング2025 レコメンデモ賞</span><span class="en">Recommended Demo Award, IPSJ Entertainment Computing 2025</span></span></li>
         <li><span class="row-year">2023</span><span><span class="ja">情報処理学会 エンタテインメントコンピューティング2023 デモ優秀賞</span><span class="en">Demo Excellence Award, IPSJ Entertainment Computing 2023</span></span></li>
-        <li><span class="row-year">2019</span><span>UIST 2019 Student Innovation Contest — Jury's Choice Honorable Mention</span></li>
-        <li><span class="row-year">2019</span><span>UIST 2019 Student Innovation Contest — People's Choice Honorable Mention</span></li>
+        <li><span class="row-year">2019</span><span><a href="https://uist.acm.org/uist2019/" target="_blank" rel="noopener">UIST 2019 Student Innovation Contest</a> — Jury's Choice Honorable Mention</span></li>
+        <li><span class="row-year">2019</span><span><a href="https://uist.acm.org/uist2019/" target="_blank" rel="noopener">UIST 2019 Student Innovation Contest</a> — People's Choice Honorable Mention</span></li>
       </ul>
 
       <h3 class="pub-category"><span class="ja">研究助成</span><span class="en">Grants</span></h3>
@@ -231,8 +242,6 @@
   <section id="contact" class="section">
     <div class="container">
       <h2 class="section-title">Contact</h2>
-      <p class="ja">ご質問や共同研究のご相談は、メールでお気軽にご連絡ください。</p>
-      <p class="en">For questions or collaboration inquiries, please feel free to reach out by email.</p>
       <p class="contact-email">h.yamamura [at] star.rcast.u-tokyo.ac.jp</p>
       <ul class="profile-links">
         <li><a href="https://scholar.google.co.jp/citations?user=Hja_1qMAAAAJ&hl=ja&oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
