@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H. Yamamura | Homepage</title>
+  <meta name="description" content="H. Yamamura - researcher homepage. Publications, projects, and contact.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#top" class="brand">
+      <span class="brand-dot"></span>
+      <span class="ja">山村 H.</span><span class="en">H. Yamamura</span>
+    </a>
+    <nav class="nav">
+      <a href="#about"><span class="ja">自己紹介</span><span class="en">About</span></a>
+      <a href="#publications"><span class="ja">研究業績</span><span class="en">Publications</span></a>
+      <a href="#projects"><span class="ja">プロジェクト</span><span class="en">Projects</span></a>
+      <a href="#contact"><span class="ja">連絡先</span><span class="en">Contact</span></a>
+    </nav>
+    <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Switch language">
+      <span class="lang-opt" data-lang="ja">日本語</span>
+      <span class="lang-sep">/</span>
+      <span class="lang-opt" data-lang="en">EN</span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow">
+          <span class="ja">東京大学 先端科学技術研究センター</span>
+          <span class="en">Research Center for Advanced Science and Technology, The University of Tokyo</span>
+        </p>
+        <h1>
+          <span class="ja">山村 H.</span>
+          <span class="en">H. Yamamura</span>
+        </h1>
+        <p class="lead">
+          <span class="ja">ここに一行の自己紹介を書きます。研究テーマや興味のある分野を簡潔に。</span>
+          <span class="en">A one-line introduction goes here. Briefly describe your research theme and interests.</span>
+        </p>
+        <div class="hero-tags">
+          <span class="tag tag-mint"><span class="ja">研究分野 1</span><span class="en">Field 1</span></span>
+          <span class="tag tag-sky"><span class="ja">研究分野 2</span><span class="en">Field 2</span></span>
+          <span class="tag tag-lavender"><span class="ja">研究分野 3</span><span class="en">Field 3</span></span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <!-- 顔写真を使う場合は img/profile.jpg を置き、下の div を <img class="avatar" src="img/profile.jpg" alt=""> に差し替えてください -->
+        <div class="avatar-placeholder">
+          <svg viewBox="0 0 200 200" width="100%" height="100%">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#b8f2e6"/>
+                <stop offset="50%" stop-color="#bde0fe"/>
+                <stop offset="100%" stop-color="#d7c9f5"/>
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="96" fill="url(#g1)"/>
+            <circle cx="100" cy="82" r="30" fill="#fff" opacity="0.9"/>
+            <path d="M40 170 Q100 110 160 170 Z" fill="#fff" opacity="0.9"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title">
+        <span class="section-num">01</span>
+        <span class="ja">自己紹介・経歴</span><span class="en">About</span>
+      </h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="ja">
+            自己紹介の本文です。所属、専門分野、現在取り組んでいる研究の概要などを2〜3段落で記述してください。
+          </p>
+          <p class="ja">
+            研究の動機や将来の展望など、読者に伝えたいことを自由に書けます。
+          </p>
+          <p class="en">
+            This is the body of your introduction. Describe your affiliation, field of expertise, and an overview
+            of your current research in two or three paragraphs.
+          </p>
+          <p class="en">
+            Feel free to share your motivation and future outlook with the reader.
+          </p>
+        </div>
+        <div class="timeline">
+          <h3><span class="ja">経歴</span><span class="en">Career</span></h3>
+          <ul>
+            <li>
+              <span class="tl-year">2024 -</span>
+              <span class="tl-body">
+                <span class="ja">東京大学 先端科学技術研究センター ○○</span>
+                <span class="en">RCAST, The University of Tokyo - Position</span>
+              </span>
+            </li>
+            <li>
+              <span class="tl-year">2021 - 2024</span>
+              <span class="tl-body">
+                <span class="ja">○○大学 大学院 ○○専攻 博士課程</span>
+                <span class="en">Ph.D., Department of XXX, University of YYY</span>
+              </span>
+            </li>
+            <li>
+              <span class="tl-year">2019 - 2021</span>
+              <span class="tl-body">
+                <span class="ja">○○大学 大学院 ○○専攻 修士課程</span>
+                <span class="en">M.S., Department of XXX, University of YYY</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Publications ===== -->
+  <section id="publications" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">
+        <span class="section-num">02</span>
+        <span class="ja">研究業績</span><span class="en">Publications</span>
+      </h2>
+
+      <h3 class="pub-category"><span class="ja">学術論文</span><span class="en">Journal Articles</span></h3>
+      <ol class="pub-list">
+        <li>
+          <span class="pub-authors"><strong>H. Yamamura</strong>, A. Author, B. Author</span>
+          <span class="pub-title">Title of the paper goes here</span>
+          <span class="pub-venue"><em>Journal Name</em>, vol. 1, no. 1, pp. 1-10, 2025.</span>
+          <span class="pub-links">
+            <a href="#" target="_blank" rel="noopener">DOI</a>
+            <a href="#" target="_blank" rel="noopener">PDF</a>
+          </span>
+        </li>
+        <li>
+          <span class="pub-authors">A. Author, <strong>H. Yamamura</strong></span>
+          <span class="pub-title">Another paper title</span>
+          <span class="pub-venue"><em>Journal Name</em>, 2024.</span>
+          <span class="pub-links">
+            <a href="#" target="_blank" rel="noopener">DOI</a>
+          </span>
+        </li>
+      </ol>
+
+      <h3 class="pub-category"><span class="ja">国際会議</span><span class="en">Conference Papers</span></h3>
+      <ol class="pub-list">
+        <li>
+          <span class="pub-authors"><strong>H. Yamamura</strong>, C. Author</span>
+          <span class="pub-title">Conference paper title</span>
+          <span class="pub-venue"><em>Proc. of Conference Name</em>, City, Country, 2024.</span>
+        </li>
+      </ol>
+
+      <h3 class="pub-category"><span class="ja">受賞</span><span class="en">Awards</span></h3>
+      <ul class="award-list">
+        <li>
+          <span class="tl-year">2024</span>
+          <span class="ja">○○学会 優秀発表賞</span>
+          <span class="en">Best Presentation Award, XXX Society</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== Projects ===== -->
+  <section id="projects" class="section">
+    <div class="container">
+      <h2 class="section-title">
+        <span class="section-num">03</span>
+        <span class="ja">プロジェクト・作品</span><span class="en">Projects</span>
+      </h2>
+      <div class="card-grid">
+        <article class="card card-mint">
+          <h3><span class="ja">プロジェクト名 1</span><span class="en">Project 1</span></h3>
+          <p class="ja">プロジェクトの概要を2〜3行で説明します。目的、手法、成果など。</p>
+          <p class="en">Describe the project in two or three lines: goal, approach, and outcome.</p>
+          <a class="card-link" href="#" target="_blank" rel="noopener">
+            <span class="ja">詳細を見る</span><span class="en">Learn more</span> &rarr;
+          </a>
+        </article>
+        <article class="card card-sky">
+          <h3><span class="ja">プロジェクト名 2</span><span class="en">Project 2</span></h3>
+          <p class="ja">プロジェクトの概要を2〜3行で説明します。</p>
+          <p class="en">Describe the project in two or three lines.</p>
+          <a class="card-link" href="#" target="_blank" rel="noopener">
+            GitHub &rarr;
+          </a>
+        </article>
+        <article class="card card-lavender">
+          <h3><span class="ja">プロジェクト名 3</span><span class="en">Project 3</span></h3>
+          <p class="ja">プロジェクトの概要を2〜3行で説明します。</p>
+          <p class="en">Describe the project in two or three lines.</p>
+          <a class="card-link" href="#" target="_blank" rel="noopener">
+            <span class="ja">詳細を見る</span><span class="en">Learn more</span> &rarr;
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section id="contact" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">
+        <span class="section-num">04</span>
+        <span class="ja">連絡先・リンク</span><span class="en">Contact &amp; Links</span>
+      </h2>
+      <div class="contact-grid">
+        <div>
+          <p class="ja">ご質問や共同研究のご相談は、以下のメールアドレスまでお気軽にご連絡ください。</p>
+          <p class="en">For questions or collaboration inquiries, please feel free to reach out by email.</p>
+          <p class="contact-email">
+            <!-- スパム対策のため @ を [at] にしています。そのまま表示したい場合は書き換えてください -->
+            h.yamamura [at] star.rcast.u-tokyo.ac.jp
+          </p>
+        </div>
+        <ul class="link-list">
+          <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a></li>
+          <li><a href="https://researchmap.jp/" target="_blank" rel="noopener">researchmap</a></li>
+          <li><a href="https://orcid.org/" target="_blank" rel="noopener">ORCID</a></li>
+          <li><a href="https://www.rcast.u-tokyo.ac.jp/" target="_blank" rel="noopener"><span class="ja">研究室ページ</span><span class="en">Lab website</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; <span id="year"></span> H. Yamamura. Built with GitHub Pages.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
