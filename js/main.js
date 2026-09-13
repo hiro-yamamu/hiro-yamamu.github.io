@@ -84,3 +84,37 @@
     })(slots[i]);
   }
 })();
+
+// ---------- Nav scroll-spy: highlight the section currently in view ----------
+(function () {
+  var links = document.querySelectorAll('.nav a[href^="#"]');
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  var map = {};
+  for (var i = 0; i < links.length; i++) {
+    var id = links[i].getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if (el) map[id] = { link: links[i], el: el, ratio: 0 };
+  }
+  function update() {
+    var best = null;
+    for (var id in map) {
+      if (!best || map[id].ratio > map[best].ratio) best = id;
+    }
+    if (!best || map[best].ratio === 0) return;
+    for (var k in map) map[k].link.classList.toggle('is-active', k === best);
+  }
+  var io = new IntersectionObserver(function (entries) {
+    for (var i = 0; i < entries.length; i++) {
+      var id = entries[i].target.id;
+      if (map[id]) map[id].ratio = entries[i].intersectionRatio;
+    }
+    update();
+  }, { rootMargin: '-64px 0px -40% 0px', threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] });
+  for (var id in map) io.observe(map[id].el);
+  // bottom of page: force last section active
+  window.addEventListener('scroll', function () {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 2) {
+      for (var k in map) map[k].link.classList.toggle('is-active', k === 'about');
+    }
+  }, { passive: true });
+})();

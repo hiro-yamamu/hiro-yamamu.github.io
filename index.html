@@ -13,7 +13,7 @@
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
@@ -38,7 +38,7 @@
   <div class="container header-inner">
     <a href="#home" class="brand">Hiroo Yamamura</a>
     <nav class="nav" aria-label="Sections">
-      <a href="#home">Home</a>
+      <a href="#home" class="is-active">Home</a>
       <a href="#projects">Projects</a>
       <a href="#publications">Publications</a>
       <a href="#contact">Contact</a>
@@ -71,9 +71,9 @@
               <li><span class="ja">呼吸</span><span class="en">Breathing</span></li>
             </ul>
           </div>
-          <ul class="profile-links">
-            <li><a href="https://scholar.google.co.jp/citations?user=Hja_1qMAAAAJ&hl=ja&oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
-            <li><a href="#contact">Email</a></li>
+          <ul class="profile-links profile-links-btn">
+            <li><a class="btn" href="https://scholar.google.co.jp/citations?user=Hja_1qMAAAAJ&hl=ja&oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
+            <li><a class="btn btn-ghost" href="#contact">Email</a></li>
           </ul>
         </div>
       </div>
@@ -238,8 +238,8 @@
     <div class="container">
       <h2 class="section-title">Contact</h2>
       <p class="contact-email">h.yamamura [at] star.rcast.u-tokyo.ac.jp</p>
-      <ul class="profile-links">
-        <li><a href="https://scholar.google.co.jp/citations?user=Hja_1qMAAAAJ&hl=ja&oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
+      <ul class="profile-links profile-links-btn">
+        <li><a class="btn" href="https://scholar.google.co.jp/citations?user=Hja_1qMAAAAJ&hl=ja&oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
       </ul>
     </div>
   </section>
@@ -252,6 +252,9 @@
         <span class="ja">東京大学 先端科学技術研究センター 身体情報学分野 学術専門職員 ／ 慶應義塾大学 KLL研究員</span>
         <span class="en">Academic Specialist, Body Information Science Division, RCAST, The University of Tokyo / KLL Research Fellow, Keio University</span>
       </p>
+      <ul class="profile-links profile-links-btn about-links">
+        <li><a class="btn" href="https://scholar.google.co.jp/citations?user=Hja_1qMAAAAJ&hl=ja&oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
+      </ul>
       <h3 class="pub-category"><span class="ja">学歴・職歴</span><span class="en">Education &amp; Career</span></h3>
       <ul class="row-list">
         <li><span class="row-year">2025.04 –</span><span><span class="ja">東京大学 先端科学技術研究センター 身体情報学分野 学術専門職員</span><span class="en">Academic Specialist, Body Information Science Division, RCAST, The University of Tokyo</span></span></li>
