@@ -12,11 +12,11 @@
   --rule: #e1e5e9;
   --accent: #2b6a8a;           /* muted ice blue; 5.6:1 on --bg */
 
-  --display: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Yu Gothic UI", "Noto Sans JP", sans-serif;
+  --display: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic UI", "Noto Sans JP", sans-serif;
   --serif: var(--display);
-  --mint: #bff0e6;
-  --sky: #c9e2f7;
-  --lavender: #dcd3f7;
+  --mint: #d3ecf7;      /* 水色 (pale aqua) */
+  --sky: #bcd6f2;       /* light blue */
+  --lavender: #b7c4e6;  /* 淡い紺 (pale navy) */
   --sans: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
@@ -65,12 +65,12 @@ body.lang-en p.en { display: block; }
   min-height: 60px; padding-block: 10px; flex-wrap: wrap;
 }
 .brand {
-  font-family: var(--display); font-size: 21px; font-weight: 800;
+  font-family: var(--display); font-size: 22px; font-weight: 700;
   color: var(--ink); letter-spacing: 0.01em;
 }
 .brand:hover { text-decoration: none; }
 
-.nav { display: flex; gap: 22px; font-size: 16px; font-weight: 500; flex-wrap: wrap; }
+.nav { display: flex; gap: 26px; font-size: 18px; font-weight: 500; flex-wrap: wrap; }
 .nav a { color: var(--ink-2); padding-bottom: 2px; border-bottom: 2px solid transparent; }
 .nav a:hover { color: var(--ink); text-decoration: none; border-image: linear-gradient(90deg, var(--mint), var(--sky), var(--lavender)) 1; border-bottom-width: 2px; }
 
@@ -86,16 +86,16 @@ body.lang-en p.en { display: block; }
 .hero {
   padding: 64px 0 64px;
   background:
-    radial-gradient(ellipse 70% 60% at 100% 0%, var(--lavender) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 60% at 100% 0%, var(--sky) 0%, transparent 60%),
     radial-gradient(ellipse 60% 55% at 0% 10%, var(--mint) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 60% at 50% 100%, var(--sky) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 60% at 50% 100%, var(--lavender) 0%, transparent 55%),
     var(--bg);
 }
 .hero-inner { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 36px; align-items: center; margin-bottom: 40px; }
 .avatar { width: 104px; height: 104px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 6px rgba(255,255,255,.85); }
 
 .hero h1 {
-  font-family: var(--display); font-weight: 800;
+  font-family: var(--display); font-weight: 700;
   font-size: clamp(40px, 6vw, 58px); line-height: 1.1; letter-spacing: 0.01em;
   margin: 0 0 14px;
 }
@@ -146,11 +146,11 @@ body.lang-en p.en { display: block; }
 /* ---------- Sections ---------- */
 .section { padding: 64px 0 72px; border-top: 1px solid var(--rule); }
 .section-title {
-  margin: 0 0 32px; font-family: var(--display); font-size: 36px; font-weight: 800; line-height: 1.2; letter-spacing: 0.01em;
-  position: relative; padding-bottom: 14px;
+  display: inline-block; margin: 0 0 32px; font-family: var(--display); font-size: 36px; font-weight: 700; line-height: 1.2; letter-spacing: 0.01em;
+  position: relative; padding-bottom: 10px;
 }
 .section-title::after {
-  content: ""; position: absolute; left: 0; bottom: 0; width: 72px; height: 6px; border-radius: 3px;
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px; border-radius: 3px;
   background: linear-gradient(90deg, var(--mint), var(--sky), var(--lavender));
 }
 
@@ -181,7 +181,7 @@ body.lang-en p.en { display: block; }
 .chip a { color: inherit; }
 .chip a:hover { text-decoration: none; color: var(--accent); }
 .chip:has(a):hover { border-color: var(--accent); }
-.chip-award { background: linear-gradient(90deg, var(--mint), var(--sky)); border-color: transparent; color: #1f4f66; font-weight: 700; }
+.chip-award { background: linear-gradient(90deg, var(--sky), var(--lavender)); border-color: transparent; color: #1e3a5f; font-weight: 700; }
 .chip-award::before { content: "★ "; font-size: 11px; }
 .chip-media { border-style: dashed; }
 
@@ -231,7 +231,7 @@ body.lang-en p.en { display: block; }
 /* ---------- Responsive ---------- */
 @media (max-width: 760px) {
   .header-inner { row-gap: 4px; }
-  .nav { order: 3; width: 100%; gap: 16px; font-size: 15px; padding-bottom: 4px; }
+  .nav { order: 3; width: 100%; gap: 18px; font-size: 16px; padding-bottom: 4px; }
   .hero { padding: 40px 0 40px; }
   .avatar { width: 76px; height: 76px; }
   .hero-inner { grid-template-columns: 76px minmax(0, 1fr); gap: 20px; margin-bottom: 28px; }
