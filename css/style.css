@@ -20,7 +20,7 @@
   --sans: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --maxw: 860px;
+  --maxw: 1100px;
 }
 
 * { box-sizing: border-box; }
@@ -179,7 +179,7 @@ body.lang-en p.en { display: block; }
 
 /* ---------- Projects ---------- */
 .project-lead {
-  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px; align-items: start;
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 40px; align-items: start;
   padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--rule);
 }
 .card-video { border-radius: 4px; }
@@ -188,7 +188,7 @@ body.lang-en p.en { display: block; }
 .project-lead h3 { font-family: var(--display); font-size: 30px; font-weight: 700; margin: 0 0 8px; line-height: 1.2; }
 .project-lead p { font-size: 15.5px; color: var(--ink-2); margin: 0 0 10px; }
 
-.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 32px; }
+.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 44px 40px; }
 .card { display: flex; flex-direction: column; }
 .card-img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; background: var(--tint); margin-bottom: 12px; }
 .card-year { font-family: var(--mono); font-size: 12.5px; color: var(--ink-3); letter-spacing: 0.04em; margin: 0 0 2px; }
