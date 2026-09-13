@@ -79,40 +79,26 @@ body.lang-en p.en { display: block; }
 .lang-btn[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
 
 /* ---------- Hero ---------- */
-.hero { padding: 56px 0 40px; }
-.hero-inner { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 28px; align-items: start; }
-.avatar { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; margin-top: 8px; }
+.hero { padding: 56px 0 56px; }
+.hero-inner { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 28px; align-items: center; margin-bottom: 36px; }
+.avatar { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; }
 
 .hero h1 {
   font-family: var(--serif); font-weight: 500;
   font-size: clamp(38px, 6vw, 54px); line-height: 1.05; letter-spacing: -0.015em;
   margin: 0 0 10px;
 }
-.tagline {
-  margin: 0 0 6px; font-family: var(--serif); font-size: 21px; color: var(--ink-2);
-  letter-spacing: 0.02em;
-}
-.tagline .x { color: var(--accent); margin: 0 3px; }
-.affil { margin: 0 0 14px; font-size: 13.5px; color: var(--ink-3); }
+.tagline { margin: 0 0 12px; font-family: var(--serif); font-size: 20px; color: var(--ink-2); line-height: 1.5; }
 
 .profile-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13.5px; }
 .profile-links a::after { content: " ↗"; font-size: 11px; color: var(--ink-3); }
 .profile-links a[href^="#"]::after { content: ""; }
 
-/* ---------- Featured (video) ---------- */
-.featured { padding: 0 0 56px; }
-.feature {
-  margin: 0; padding: 20px; background: var(--tint); border-radius: 6px;
-  display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 24px; align-items: center;
+.hero-video { margin: 0; }
+.hero-video figcaption {
+  margin-top: 10px; font-family: var(--mono); font-size: 12.5px; color: var(--ink-3); letter-spacing: 0.02em;
 }
-.feature figcaption p { font-size: 14px; color: var(--ink-2); line-height: 1.7; }
-.feature h2 { font-family: var(--serif); font-size: 26px; font-weight: 500; margin: 2px 0 8px; line-height: 1.2; }
-.kicker {
-  margin: 0 !important; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--accent) !important;
-}
-.feature-links { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; margin: 0 !important; }
-.feature-links a::after { content: " ↗"; font-size: 10px; }
+.hero-video .sep { margin: 0 4px; opacity: .5; }
 
 /* ---------- Video (click-to-load) ---------- */
 .video { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 4px; overflow: hidden; background: #0f1418; }
@@ -140,35 +126,49 @@ body.lang-en p.en { display: block; }
 .section-title { margin: 0 0 24px; font-family: var(--serif); font-size: 28px; font-weight: 500; line-height: 1.2; }
 
 /* ---------- Projects ---------- */
-.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.project-lead {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px; align-items: start;
+  padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--rule);
+}
+.project-lead h3 { font-family: var(--serif); font-size: 28px; font-weight: 500; margin: 0 0 8px; line-height: 1.2; }
+.project-lead p { font-size: 14.5px; color: var(--ink-2); margin: 0 0 10px; }
+
+.card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 32px; }
 .card { display: flex; flex-direction: column; }
 .card-img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; background: var(--tint); margin-bottom: 12px; }
 .card-year { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); letter-spacing: 0.04em; margin: 0 0 2px; }
 .card h3 { font-family: var(--serif); font-size: 22px; font-weight: 500; margin: 0 0 6px; line-height: 1.25; }
 .card p { font-size: 14px; color: var(--ink-2); margin: 0 0 8px; }
-.card-venue { font-size: 12.5px !important; color: var(--ink-3) !important; margin-top: auto !important; }
+
+/* venue / award chips */
+.chips { list-style: none; margin: auto 0 0; padding: 4px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-size: 12.5px; line-height: 1.4; padding: 3px 9px; border-radius: 3px;
+  border: 1px solid var(--rule); color: var(--ink-2); background: #fff;
+}
+.chip a { color: inherit; }
+.chip a:hover { text-decoration: none; color: var(--accent); }
+.chip:has(a):hover { border-color: var(--accent); }
+.chip-award { background: var(--tint); border-color: transparent; color: var(--accent); font-weight: 600; }
+.chip-award::before { content: "★ "; font-size: 11px; }
+.chip-media { border-style: dashed; }
 
 /* ---------- Publications ---------- */
 .pub-category {
-  margin: 28px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--rule);
+  margin: 30px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--rule);
   font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--ink-3);
 }
 .section-title + .pub-category { margin-top: 0; }
 
-.pub-list { margin: 0; padding-left: 28px; }
-.pub-list li { margin: 0 0 14px; padding-left: 2px; }
-.pub-list li::marker { font-family: var(--mono); font-size: 12px; color: var(--ink-3); }
-.pub-list li > span { display: block; }
-.pub-authors { font-size: 13.5px; color: var(--ink-2); }
-.pub-title { font-weight: 600; font-size: 15px; line-height: 1.6; }
-.pub-venue { font-size: 13.5px; color: var(--ink-3); }
-.pub-venue a { margin-left: 6px; font-size: 12.5px; }
-.pub-venue a::after { content: " ↗"; font-size: 10px; }
-
-.pub-list-dense li { margin-bottom: 9px; }
-.pub-list-dense .pub-title { font-weight: 500; font-size: 14px; line-height: 1.55; }
-.pub-list-dense .pub-authors { font-size: 12.5px; color: var(--ink-3); }
+/* One entry = one paragraph (authors, "title," venue, pages, year. links) so it can be copied into a CV as-is. */
+.pub-list { margin: 0; padding-left: 30px; }
+.pub-list li { margin: 0 0 12px; padding-left: 2px; font-size: 15px; line-height: 1.75; color: var(--ink); }
+.pub-list li::marker { font-family: var(--mono); font-size: 12.5px; color: var(--ink-3); }
+.pub-list b { font-weight: 700; }
+.pub-list i { font-style: italic; }
+.pub-list a { margin-left: 4px; font-size: 13px; white-space: nowrap; }
+.pub-list a::after { content: " ↗"; font-size: 10px; }
 
 /* ---------- Row lists (awards, grants, career) ---------- */
 .row-list { list-style: none; margin: 0; padding: 0; }
@@ -180,6 +180,8 @@ body.lang-en p.en { display: block; }
 .row-year { font-family: var(--mono); font-size: 13px; color: var(--ink-3); white-space: nowrap; padding-top: 2px; min-width: 9.5em; }
 .row-list strong { font-weight: 600; }
 .row-list .muted { color: var(--ink-2); }
+
+.affil { margin: -8px 0 20px; font-size: 15px; color: var(--ink-2); }
 
 /* ---------- Contact ---------- */
 .contact-email {
@@ -200,11 +202,12 @@ body.lang-en p.en { display: block; }
   .nav { order: 3; width: 100%; gap: 14px; font-size: 13px; padding-bottom: 4px; }
   .hero { padding: 36px 0 28px; }
   .hero-inner { grid-template-columns: 64px minmax(0, 1fr); gap: 16px; }
-  .avatar { width: 64px; height: 64px; margin-top: 4px; }
+  .avatar { width: 64px; height: 64px; }
   .tagline { font-size: 17px; }
-  .feature { grid-template-columns: 1fr; padding: 12px; gap: 12px; }
-  .feature h2 { font-size: 22px; }
-  .featured { padding-bottom: 40px; }
+  .pub-list li { font-size: 14.5px; }
+  .project-lead { grid-template-columns: 1fr; gap: 14px; }
+  .project-lead h3 { font-size: 24px; }
+  .hero-inner { margin-bottom: 24px; }
   .section { padding: 36px 0; }
   .section-title { font-size: 24px; }
   .card-grid { grid-template-columns: 1fr; gap: 28px; }
@@ -219,7 +222,6 @@ body.lang-en p.en { display: block; }
 
 @media print {
   .site-header, .lang-switch, .video-play, .site-footer { display: none !important; }
-  .featured, .feature { background: none; padding: 0; }
   a { color: inherit; }
   a::after { content: "" !important; }
   .section { break-inside: avoid; }
