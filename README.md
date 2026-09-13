@@ -29,3 +29,14 @@ git push
 ```
 
 push後、1〜2分でサイトに反映されます。
+
+## YouTube動画を追加する
+
+`index.html` に次の1行を置くと、クリックで再生されるサムネイル付きの動画枠になります。
+
+```html
+<div class="video" data-yt="動画ID" data-title="表示するタイトル"></div>
+```
+
+動画IDは `https://www.youtube.com/watch?v=XXXXXXXXXXX` の `XXXXXXXXXXX` の部分です。
+プロジェクトカードに入れる場合は `<img class="card-img" ...>` の行と置き換えてください。
