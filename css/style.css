@@ -159,6 +159,9 @@ body.lang-en p.en { display: block; }
   display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px; align-items: start;
   padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--rule);
 }
+.card-video { border-radius: 4px; }
+.card-video .video-play::before { width: 52px; height: 52px; }
+.card-video .video-play::after { border-width: 8px 0 8px 14px; margin-left: 4px; }
 .project-lead h3 { font-family: var(--display); font-size: 30px; font-weight: 700; margin: 0 0 8px; line-height: 1.2; }
 .project-lead p { font-size: 15.5px; color: var(--ink-2); margin: 0 0 10px; }
 
