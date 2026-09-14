@@ -238,6 +238,8 @@ body.lang-en p.en { display: block; }
 .row-year { font-family: var(--mono); font-size: 15px; color: var(--ink-3); white-space: nowrap; padding-top: 3px; }
 .row-list strong { font-weight: 600; }
 .row-list .muted { color: var(--ink-2); }
+.row-sub { display: block; margin-top: 4px; font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.row-sub b { font-weight: 700; color: var(--ink); }
 
 .affil { margin: -8px 0 24px; font-size: 17px; color: var(--ink-2); }
 
