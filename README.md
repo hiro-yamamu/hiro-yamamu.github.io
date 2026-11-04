@@ -31,6 +31,43 @@ img/            画像（profile.jpg, necomimi_poster.jpg, 各プロジェクト
 - `data-poster` は省略可。省略すると YouTube のサムネイルを使います。
 - クリックすると YouTube (youtube-nocookie.com) の埋め込みプレーヤーに切り替わります。
 
+## 業績を自動で追加する（addpub）
+
+論文の URL を渡すだけで Publications に追記し、公開まで行う仕組みが `tools/addpub/` と
+`.github/workflows/add-publication.yml` に入っています。
+
+### 使い方 1: GitHub の Issue から（スマホでも可）
+
+1. リポジトリの **Issues → New issue → 「業績を追加 / Add publication」** を開く
+2. **URL** に論文のリンクを貼って Submit（他の欄は空でよい）
+3. 1〜2 分で GitHub Actions が index.html に追記して push し、結果を Issue にコメントして閉じます
+4. 情報が足りない場合（日本語論文の英語タイトルなど）はコメントで知らせるので、**Issue を編集**して欄を埋めると再実行されます
+
+Actions タブの「Add publication」→ **Run workflow** に URL を入れても同じことができます。
+
+### 使い方 2: 手元の PC から
+
+```
+pip install -r tools/requirements.txt
+python -m tools.addpub <URL> --dry-run      # 追加される行を確認するだけ
+python -m tools.addpub <URL> --push         # 追記して commit & push
+python -m tools.addpub <URL> --category domestic --title-en "..." --authors-en "A, B"   # 手で補う
+```
+
+### 対応している URL と取れる情報
+
+| URL | 取れる情報 |
+| --- | --- |
+| DOI（doi.org, dl.acm.org, frontiersin.org, diglib.eg.org など） | 著者・題名・媒体・巻号・ページ・年。英語論文はこれだけで完成 |
+| J-STAGE の DOI（日本語論文） | 日本語の書誌。英語題名は Claude か手入力で補う |
+| 情報学広場 `ipsj.ixsq.nii.ac.jp/records/…` | 日英の題名・著者・媒体 |
+| 予稿 PDF（VRSJ 大会など） | 本文テキストのみ。Claude か手入力が必要。VRSJ は URL から大会名・年を推定 |
+
+- カテゴリ（学術論文 / 国際会議 / 国内会議）は種別と言語から自動判定。年順（新しい順）の位置に挿入し、`Last updated` と `sitemap.xml` の日付も更新します。
+- 同じ DOI / URL / 題名がすでにあれば追加しません。
+- 共著者名の日英対応は index.html 内の既存エントリから学習します。未知の名前は `tools/addpub/config.json` の `author_names` に追記できます。学会名の対応表も同ファイルの `venues` にあります。
+- **任意: Claude API による補完。** リポジトリの Secrets に `ANTHROPIC_API_KEY` を登録すると、足りない英語題名・著者の読み・PDF しかない論文の書誌を自動で埋めます（モデル: `claude-opus-5-5`、1 件あたり数円程度）。未登録でも動きますが、その場合は不足分を Issue の欄に手入力します。
+
 ## 更新して公開する
 
 ```

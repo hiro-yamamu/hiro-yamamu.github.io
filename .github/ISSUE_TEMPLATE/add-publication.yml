@@ -1,0 +1,83 @@
+name: 業績を追加 / Add publication
+description: 論文のリンクを貼るだけで index.html の Publications に自動追加されます。
+title: "業績追加: "
+labels: ["add-publication"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **URL を貼って Submit するだけ**で、GitHub Actions がメタデータを取得し、Publications に追記して公開します。
+        結果はこの Issue にコメントで届きます。足りない情報があれば、このIssueを編集して下の項目を埋めると再実行されます。
+        対応URL: DOI (doi.org / dl.acm.org / frontiersin.org / J-STAGE など) ・ 情報学広場 (ipsj.ixsq.nii.ac.jp) ・ 予稿PDF
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      description: 論文ページ・DOI・PDF のいずれか
+      placeholder: https://doi.org/10.xxxx/xxxxx
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: カテゴリ
+      options:
+        - 自動判定
+        - 学術論文
+        - 国際会議
+        - 国内会議
+      default: 0
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        以下は任意です。自動取得で不足した場合（日本語論文の英語タイトルなど）だけ埋めてください。
+  - type: input
+    id: title_ja
+    attributes:
+      label: 日本語タイトル
+  - type: input
+    id: title_en
+    attributes:
+      label: 英語タイトル
+  - type: input
+    id: authors_ja
+    attributes:
+      label: 著者（日本語）
+      description: 「姓 名」をカンマ区切りで、論文の順番どおりに
+      placeholder: 山村 浩穂, 近藤 亮太, 杉本 麻樹
+  - type: input
+    id: authors_en
+    attributes:
+      label: 著者（英語）
+      description: 「Given Family」をカンマ区切りで、同じ順番に
+      placeholder: Hiroo Yamamura, Ryota Kondo, Maki Sugimoto
+  - type: input
+    id: venue_ja
+    attributes:
+      label: 発表媒体（日本語）
+      placeholder: 第31回 日本バーチャルリアリティ学会大会
+  - type: input
+    id: venue_en
+    attributes:
+      label: 発表媒体（英語）
+      placeholder: 31st Annual Conference of the Virtual Reality Society of Japan
+  - type: input
+    id: year
+    attributes:
+      label: 年
+      placeholder: "2026"
+  - type: input
+    id: presentation
+    attributes:
+      label: 発表形式
+      description: Poster / Oral / Demo / Short paper など（国際会議・国内会議のみ）
+  - type: input
+    id: vip
+    attributes:
+      label: 巻 / 号 / ページ
+      placeholder: "vol. 30, no. 1, pp. 13-22"
+  - type: textarea
+    id: note
+    attributes:
+      label: 備考

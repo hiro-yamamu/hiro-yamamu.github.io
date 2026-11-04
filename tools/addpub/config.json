@@ -1,0 +1,28 @@
+{
+  "self": {
+    "en": ["Hiroo Yamamura"],
+    "ja": ["山村 浩穂", "山村浩穂"]
+  },
+  "categories": {
+    "journal":       {"heading_en": "Journal Articles",          "label_ja": "学術論文"},
+    "international": {"heading_en": "International Conferences", "label_ja": "国際会議"},
+    "domestic":      {"heading_en": "Domestic Conferences",      "label_ja": "国内会議"}
+  },
+  "author_names": {
+    "山村 浩穂": "Hiroo Yamamura"
+  },
+  "venues": [
+    {"ja": "日本バーチャルリアリティ学会論文誌", "en": "Transactions of the Virtual Reality Society of Japan", "category": "journal"},
+    {"ja_pattern": "^第(\\d+)回 ?日本バーチャルリアリティ学会大会$", "en_format": "{ordinal} Annual Conference of the Virtual Reality Society of Japan", "category": "domestic"},
+    {"ja_pattern": "^情報処理学会 ?エンタテインメントコンピューティング(?:シンポジウム)?(\\d{4})$", "en_format": "IPSJ Entertainment Computing Symposium {0} (EC{0})", "category": "domestic"},
+    {"ja_pattern": "^情報処理学会 ?第(\\d+)回 ?全国大会$", "en_format": "{ordinal} National Convention of IPSJ", "category": "domestic"},
+    {"ja_pattern": "^INTERACTION ?(\\d{4})", "en_format": "INTERACTION {0}", "category": "domestic"}
+  ],
+  "vrsj_first_year": 1996,
+  "link_labels": [
+    {"host": "doi.org", "label": "DOI"},
+    {"host": "ipsj.ixsq.nii.ac.jp", "label": "IPSJ DL"},
+    {"host": "frontiersin.org", "label": "Full text"},
+    {"suffix": ".pdf", "label": "PDF"}
+  ]
+}
