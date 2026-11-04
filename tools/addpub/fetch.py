@@ -13,7 +13,7 @@ import html as htmllib
 import io
 import re
 from html.parser import HTMLParser
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
 import requests
 
@@ -40,7 +40,7 @@ def _get(url: str, **kw) -> requests.Response:
 
 # --------------------------------------------------------------------------- DOI
 def extract_doi(url: str) -> str | None:
-    m = DOI_RE.search(url)
+    m = DOI_RE.search(unquote(url))
     if not m:
         return None
     doi = m.group(1)
@@ -163,6 +163,7 @@ def apply_crossref(rec: Record, msg: dict) -> None:
         _set_venue(rec, cont or _strip_event_prefix(name))
     if acro and rec.venue_en and acro.lower() not in rec.venue_en.lower():
         rec.venue_en = f"{rec.venue_en} ({acro})"
+        rec.note(f"Venue acronym '{acro}' comes from Crossref's event record; shorten the venue by hand if you prefer (e.g. \"{acro}\")")
     if not rec.pages and msg.get("page"):
         rec.pages = msg["page"]
     if not rec.article_number and msg.get("article-number"):
@@ -467,7 +468,9 @@ def resolve(url: str, cfg: dict) -> Record:
                 if not rec.page_text:
                     rec.note("PDF has no extractable text")
             else:
-                body = r.content.decode(r.encoding or "utf-8", errors="replace")
+                # requests assumes ISO-8859-1 for text/* without a charset; sniff instead
+                enc = r.encoding if "charset" in ctype else (r.apparent_encoding or "utf-8")
+                body = r.content.decode(enc or "utf-8", errors="replace")
                 parsed = parse_html(body)
                 apply_highwire(rec, parsed.meta)
                 if not rec.doi:

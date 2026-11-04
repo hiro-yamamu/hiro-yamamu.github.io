@@ -64,13 +64,13 @@ def normalize(f: dict) -> dict:
             out["year"] = int(m.group(0))
     if f.get("vip"):
         v = f["vip"]
-        m = re.search(r"vol\.?\s*(\w+)", v, re.I)
+        m = re.search(r"\b(?:vol(?:ume)?\.?|巻)\s*(\w+)|(\d+)\s*巻", v, re.I)
         if m:
-            out["volume"] = m.group(1)
-        m = re.search(r"no\.?\s*(\w+)", v, re.I)
+            out["volume"] = m.group(1) or m.group(2)
+        m = re.search(r"\b(?:no|number|issue)\.?\s*(\w+)|(\d+)\s*号", v, re.I)
         if m:
-            out["issue"] = m.group(1)
-        m = re.search(r"pp?\.?\s*(\w+\s*[-–]\s*\w+|\w+)", v, re.I)
+            out["issue"] = m.group(1) or m.group(2)
+        m = re.search(r"\b(?:pp?\.?|pages?)\s*(\d+\w*(?:\s*[-–]\s*\d+\w*)?)", v, re.I)
         if m:
             out["pages"] = m.group(1).replace(" ", "")
     return out

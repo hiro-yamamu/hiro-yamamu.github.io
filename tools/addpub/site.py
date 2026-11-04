@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import datetime as dt
+import html as htmllib
 import re
 from pathlib import Path
 
@@ -36,14 +37,22 @@ def write(path: Path, text: str, eol: str = "\n") -> None:
     path.write_bytes(data.encode("utf-8"))
 
 
+def _publications_slice(html: str) -> str:
+    m = re.search(r'<section id="publications".*?</section>', html, re.S)
+    return m.group(0) if m else html
+
+
 def find_duplicate(html: str, rec: Record) -> str | None:
-    hay = html.lower()
-    if rec.doi and rec.doi.lower() in hay:
+    """Is this paper already in the Publications section? Matches whole DOIs / URLs only."""
+    hay = _publications_slice(html).lower()
+    boundary = r"(?![\w./\-_])"
+    if rec.doi and re.search(re.escape(rec.doi.lower()) + boundary, hay):
         return f"DOI {rec.doi}"
-    if rec.source_url.lower().rstrip("/") in hay:
+    url = rec.source_url.lower().rstrip("/")
+    if re.search(re.escape(url) + r'/?(?=["\s<])', hay):
         return rec.source_url
     for t in (rec.title_en, rec.title_ja):
-        if t and len(t) > 20 and t.lower() in hay:
+        if t and len(t) > 20 and htmllib.escape(t, quote=False).lower() in hay:
             return f'title "{t}"'
     return None
 
