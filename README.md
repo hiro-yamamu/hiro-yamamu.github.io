@@ -45,7 +45,12 @@ img/            画像（profile.jpg, necomimi_poster.jpg, 各プロジェクト
 
 Actions タブの「Add publication」→ **Run workflow** に URL を入れても同じことができます。
 
-### 使い方 2: 手元の PC から
+### 使い方 2: 手元の PC から（デスクトップアプリ）
+
+`tools\addpub_gui.pyw` をダブルクリック → URL を貼る → 「1. 内容を確認」→ 「2. 追加して公開」。
+普段の git 認証でそのまま commit & push します（初回だけ `pip install -r tools/requirements.txt`）。
+
+### 使い方 3: コマンドライン
 
 ```
 pip install -r tools/requirements.txt
