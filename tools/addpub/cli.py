@@ -105,8 +105,7 @@ def run(url: str, overrides: dict, *, dry_run: bool, use_llm: bool, push: bool, 
         if sitemap is not None:
             write(sitemap_path, sitemap, eol_of(sitemap_path))
         if commit or push:
-            title = (rec.title_en or rec.title_ja or "")[:60]
-            msg = f'Publications: add "{title}"'
+            msg = f'Publications: add "{short_title(rec.title_en or rec.title_ja or "")}"'
             files = ["index.html"] + (["sitemap.xml"] if sitemap is not None else [])
             subprocess.run(["git", "add", *files], cwd=ROOT, check=True)
             subprocess.run(["git", "commit", "-q", "-m", msg], cwd=ROOT, check=True)
@@ -115,6 +114,15 @@ def run(url: str, overrides: dict, *, dry_run: bool, use_llm: bool, push: bool, 
                 subprocess.run(["git", "push", "-q"], cwd=ROOT, check=True)
                 result["pushed"] = True
     return result
+
+
+def short_title(title: str, limit: int = 72) -> str:
+    """Commit-subject friendly title: cut at a word boundary, mark the cut with an ellipsis."""
+    title = " ".join(title.split())
+    if len(title) <= limit:
+        return title
+    cut = title[:limit].rsplit(" ", 1)[0] if " " in title[:limit] else title[:limit]
+    return cut.rstrip(" ,:;-–") + "…"
 
 
 def main(argv: list[str] | None = None) -> int:
