@@ -16,7 +16,7 @@ from tkinter import messagebox, ttk
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from tools.addpub.cli import run  # noqa: E402
+from tools.addpub.cli import GitError, run  # noqa: E402
 from tools.addpub.fetch import FetchError  # noqa: E402
 from tools.addpub.site import DuplicateError, SiteError  # noqa: E402
 
@@ -65,6 +65,13 @@ class App(tk.Tk):
         frm.columnconfigure(0, weight=1)
         frm.rowconfigure(6, weight=1)
         self._last_ok = False
+        self._busy = False
+        self.protocol("WM_DELETE_WINDOW", self._on_close)
+
+    def _on_close(self):
+        if self._busy and not messagebox.askyesno("処理中", "まだ処理中です。閉じると push が途中で止まる可能性があります。閉じますか？"):
+            return
+        self.destroy()
 
     # ---------------------------------------------------------------- helpers
     def overrides(self) -> dict:
@@ -77,6 +84,7 @@ class App(tk.Tk):
         return ov
 
     def busy(self, on: bool, msg: str = ""):
+        self._busy = on
         state = "disabled" if on else "normal"
         self.b_prev.configure(state=state)
         self.b_pub.configure(state="disabled" if on or not self._last_ok else "normal")
@@ -103,6 +111,10 @@ class App(tk.Tk):
             except DuplicateError as e:
                 msg = f"すでに掲載されています: {e}"
                 self.after(0, lambda m=msg: self._fail(m))
+            except GitError as e:
+                msg = ("git の操作に失敗しました。サイトは更新されていません。\n\n" + str(e)
+                       + "\n\n手元の index.html には追記済みのことがあります。git status で状態を確認してください。")
+                self.after(0, lambda m=msg: self._fail(m))
             except (FetchError, SiteError) as e:
                 msg = str(e)
                 self.after(0, lambda m=msg: self._fail(m))
@@ -115,9 +127,15 @@ class App(tk.Tk):
     def _done(self, r: dict, dry_run: bool):
         if r["status"] == "ok":
             self._last_ok = dry_run
-            head = "追加される内容（まだ書き込んでいません）" if dry_run else f"公開しました。1〜2 分で {SITE_URL} に反映されます。"
+            if dry_run:
+                head = "追加される内容（まだ書き込んでいません）"
+            elif r.get("pushed"):
+                head = (f"GitHub に push しました（commit {r.get('pushed_sha')}）。\n"
+                        f"1〜2 分後に {SITE_URL} に反映されます。")
+            else:
+                head = f"commit しましたが push はしていません（commit {r.get('commit_sha')}）。"
             notes = "\n".join(f"・{n}" for n in r["record"].get("notes", []))
-            self.show(f"[{r['category_label']}]\n\n{r['preview']}\n\n{notes}\n\nHTML:\n{r['li']}")
+            self.show(f"{head}\n\n[{r['category_label']}]\n\n{r['preview']}\n\n{notes}\n\nHTML:\n{r['li']}")
             self.busy(False, "確認してから「追加して公開」を押してください" if dry_run else "完了")
         else:
             need = "、".join(r["missing"])

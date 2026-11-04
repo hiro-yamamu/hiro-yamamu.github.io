@@ -107,15 +107,51 @@ def run(url: str, overrides: dict, *, dry_run: bool, use_llm: bool, push: bool, 
         if commit or push:
             msg = f'Publications: add "{short_title(rec.title_en or rec.title_ja or "")}"'
             files = ["index.html"] + (["sitemap.xml"] if sitemap is not None else [])
-            subprocess.run(["git", "add", *files], cwd=ROOT, check=True)
-            subprocess.run(["git", "commit", "-q", "-m", msg], cwd=ROOT, check=True)
+            git("add", *files)
+            git("commit", "-q", "-m", msg)
             result["commit"] = msg
+            result["commit_sha"] = git("rev-parse", "--short", "HEAD")
             if push:
-                # someone (or the GitHub workflow) may have pushed meanwhile
-                subprocess.run(["git", "pull", "--rebase", "-q"], cwd=ROOT, check=True)
-                subprocess.run(["git", "push", "-q"], cwd=ROOT, check=True)
+                result["pushed_sha"] = push_main()
                 result["pushed"] = True
     return result
+
+
+class GitError(Exception):
+    pass
+
+
+def git(*args: str, check: bool = True) -> str:
+    """Run git in the repo without a console window; return stdout, raise GitError with stderr."""
+    flags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+    p = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, encoding="utf-8",
+                       errors="replace", creationflags=flags, stdin=subprocess.DEVNULL)
+    if check and p.returncode != 0:
+        detail = (p.stderr or p.stdout or "").strip()
+        raise GitError(f"git {args[0]} failed (exit {p.returncode}):\n{detail}")
+    return p.stdout.strip()
+
+
+def push_main() -> str:
+    """Push HEAD to origin/main and prove it landed. Returns the pushed short SHA."""
+    branch = git("rev-parse", "--abbrev-ref", "HEAD")
+    git("fetch", "-q", "origin", branch)
+    local = git("rev-parse", "HEAD")
+    remote = git("rev-parse", f"origin/{branch}")
+    base = git("merge-base", "HEAD", f"origin/{branch}")
+    if remote != base:
+        # origin moved since we started: replay our commit on top of it
+        p = subprocess.run(["git", "rebase", "-q", f"origin/{branch}"], cwd=ROOT, capture_output=True, text=True,
+                           encoding="utf-8", errors="replace", creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+        if p.returncode != 0:
+            git("rebase", "--abort", check=False)
+            raise GitError("GitHub 側の index.html と衝突しました。手元で git pull してから、もう一度試してください。\n" + (p.stderr or "").strip())
+        local = git("rev-parse", "HEAD")
+    git("push", "-q", "origin", f"HEAD:{branch}")
+    git("fetch", "-q", "origin", branch)
+    if git("rev-parse", f"origin/{branch}") != local:
+        raise GitError("push は完了しましたが、GitHub 上の main が更新されていません。git status を確認してください。")
+    return local[:7]
 
 
 def short_title(title: str, limit: int = 72) -> str:
@@ -186,11 +222,8 @@ def main(argv: list[str] | None = None) -> int:
     except DuplicateError as e:
         result = {"status": "duplicate", "message": f"Already listed: {e}"}
         code = 2
-    except (FetchError, SiteError) as e:
+    except (FetchError, SiteError, GitError) as e:
         result = {"status": "error", "message": str(e)}
-        code = 1
-    except subprocess.CalledProcessError as e:
-        result = {"status": "error", "message": f"git failed: {e}"}
         code = 1
 
     if a.comment_file:
