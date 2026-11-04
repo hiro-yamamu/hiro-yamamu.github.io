@@ -111,6 +111,8 @@ def run(url: str, overrides: dict, *, dry_run: bool, use_llm: bool, push: bool, 
             subprocess.run(["git", "commit", "-q", "-m", msg], cwd=ROOT, check=True)
             result["commit"] = msg
             if push:
+                # someone (or the GitHub workflow) may have pushed meanwhile
+                subprocess.run(["git", "pull", "--rebase", "-q"], cwd=ROOT, check=True)
                 subprocess.run(["git", "push", "-q"], cwd=ROOT, check=True)
                 result["pushed"] = True
     return result

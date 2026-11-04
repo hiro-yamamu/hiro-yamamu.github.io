@@ -36,6 +36,18 @@ img/            画像（profile.jpg, necomimi_poster.jpg, 各プロジェクト
 論文の URL を渡すだけで Publications に追記し、公開まで行う仕組みが `tools/addpub/` と
 `.github/workflows/add-publication.yml` に入っています。
 
+### いちばん簡単な使い方（Windows）
+
+```
+git clone https://github.com/hiro-yamamu/hiro-yamamu.github.io.git
+cd hiro-yamamu.github.io
+setup.bat      ← 初回だけ。Git / Python がなければ入れ、.venv を作ってパッケージを入れる
+start.bat      ← アプリ起動。URL を貼る → 「内容を確認」→ 「追加して公開」
+```
+
+`start.bat` は起動前に `git pull` して最新にし、公開時は commit & push まで行います。
+初回の push では Git がブラウザを開いて GitHub へのサインインを求めることがあります。
+
 ### 使い方 1: GitHub の Issue から（スマホでも可）
 
 1. リポジトリの **Issues → New issue → 「業績を追加 / Add publication」** を開く
@@ -45,10 +57,10 @@ img/            画像（profile.jpg, necomimi_poster.jpg, 各プロジェクト
 
 Actions タブの「Add publication」→ **Run workflow** に URL を入れても同じことができます。
 
-### 使い方 2: 手元の PC から（デスクトップアプリ）
+### 使い方 2: デスクトップアプリ
 
-`tools\addpub_gui.pyw` をダブルクリック → URL を貼る → 「1. 内容を確認」→ 「2. 追加して公開」。
-普段の git 認証でそのまま commit & push します（初回だけ `pip install -r tools/requirements.txt`）。
+`start.bat`（中身は `tools\addpub_gui.pyw`）。URL を貼る → 「1. 内容を確認」→ 「2. 追加して公開」。
+普段の git 認証でそのまま commit & push します。
 
 ### 使い方 3: コマンドライン
 
