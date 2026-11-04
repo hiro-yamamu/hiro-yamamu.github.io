@@ -122,7 +122,13 @@ def main(argv: list[str] | None = None) -> int:
         sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[attr-defined]
     except Exception:  # noqa: BLE001
         pass
-    p = argparse.ArgumentParser(prog="addpub", description="Add a publication to index.html from a URL.")
+    class Parser(argparse.ArgumentParser):
+        def error(self, message):  # usage errors exit 1, keeping 2/3 for duplicate/incomplete
+            self.print_usage(sys.stderr)
+            sys.stderr.write(f"{self.prog}: error: {message}\n")
+            sys.exit(1)
+
+    p = Parser(prog="addpub", description="Add a publication to index.html from a URL.")
     p.add_argument("url", nargs="?", help="DOI / publisher page / IPSJ DL / PDF URL")
     p.add_argument("--category", choices=["journal", "international", "domestic"])
     p.add_argument("--title-ja"); p.add_argument("--title-en")

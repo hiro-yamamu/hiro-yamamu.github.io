@@ -19,10 +19,19 @@
     {"ja_pattern": "^INTERACTION ?(\\d{4})", "en_format": "INTERACTION {0}", "category": "domestic"}
   ],
   "vrsj_first_year": 1996,
+  "presentations": {
+    "Oral": "口頭",
+    "Poster": "ポスター",
+    "Demo": "デモ",
+    "Short paper": "ショートペーパー",
+    "Invited": "招待講演",
+    "Keynote": "基調講演"
+  },
   "link_labels": [
+    {"suffix": ".pdf", "label": "PDF"},
+    {"suffix": "/pdf", "label": "PDF"},
     {"host": "doi.org", "label": "DOI"},
     {"host": "ipsj.ixsq.nii.ac.jp", "label": "IPSJ DL"},
-    {"host": "frontiersin.org", "label": "Full text"},
-    {"suffix": ".pdf", "label": "PDF"}
+    {"host": "frontiersin.org", "label": "Full text"}
   ]
 }

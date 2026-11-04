@@ -39,7 +39,19 @@ def _authors(names: list[str], self_names: list[str], ja: bool) -> str:
     return ", ".join(out)
 
 
-def _tail(rec: Record) -> list[str]:
+def presentation_pair(p: str | None, cfg: dict) -> tuple[str | None, str | None]:
+    """'Oral' or '口頭' -> ('Oral', '口頭') using config['presentations']; unknown words are used as-is."""
+    if not p:
+        return None, None
+    p = p.strip()
+    table = cfg.get("presentations", {})
+    for en, ja in table.items():
+        if p.lower() == en.lower() or p == ja:
+            return en, ja
+    return p, p
+
+
+def _tail(rec: Record, cfg: dict, lang: str = "en") -> list[str]:
     """Bits after the venue: vol/no or presentation/pages, then year."""
     parts: list[str] = []
     if rec.category == "journal":
@@ -48,8 +60,10 @@ def _tail(rec: Record) -> list[str]:
         if rec.issue:
             parts.append(f"no. {_esc(str(rec.issue))}")
     else:
-        if rec.presentation:
-            parts.append(_esc(rec.presentation))
+        p_en, p_ja = presentation_pair(rec.presentation, cfg)
+        pres = p_ja if lang == "ja" else p_en
+        if pres:
+            parts.append(_esc(pres))
         if rec.article_number and rec.category == "international":
             parts.append(f"Article {_esc(str(rec.article_number))}")
         pg = _pages(rec.pages)
@@ -82,7 +96,7 @@ def _citation(authors: str, title: str, venue_html: str, tail: list[str], suffix
 def render_li(rec: Record, cfg: dict) -> str:
     self_en = cfg["self"]["en"]
     self_ja = cfg["self"]["ja"]
-    tail = _tail(rec)
+    tail = _tail(rec, cfg, "en")
     links = _links(rec)
 
     if rec.title_ja:
@@ -91,7 +105,7 @@ def render_li(rec: Record, cfg: dict) -> str:
         a_en = _authors(rec.authors_en or rec.authors_ja, self_en + self_ja, ja=not rec.authors_en)
         v_ja = f"<i>{_esc(rec.venue_ja or rec.venue_en or '')}</i>"
         v_en = f"<i>{_esc(rec.venue_en or rec.venue_ja or '')}</i>"
-        ja = _citation(a_ja, rec.title_ja, v_ja, tail)
+        ja = _citation(a_ja, rec.title_ja, v_ja, _tail(rec, cfg, "ja"))
         en = _citation(a_en, rec.title_en or rec.title_ja, v_en, tail, " (in Japanese)")
         body = f'<span class="ja">{ja}</span><span class="en">{en}</span>'
     elif rec.venue_ja and rec.venue_en:

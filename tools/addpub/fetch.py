@@ -393,11 +393,31 @@ def apply_venue_table(rec: Record, cfg: dict) -> None:
             return
 
 
+JOURNAL_WORDS = re.compile(r"journal|transactions|論文誌|letters|review", re.I)
+CONF_WORDS = re.compile(r"conference|symposium|proceedings|workshop|congress|meeting|大会|研究会|シンポジウム|講演会|研究発表会", re.I)
+
+
 def finalize_category(rec: Record) -> None:
+    if rec.category is None:
+        venue = f"{rec.venue_en or ''} {rec.venue_ja or ''}"
+        if JOURNAL_WORDS.search(venue):
+            rec.category = "journal"
+        elif CONF_WORDS.search(venue):
+            rec.category = "conference"
     if rec.category == "conference":
         rec.category = "domestic" if (rec.title_ja or rec.venue_ja) else "international"
     if rec.category is None and (rec.title_ja or rec.venue_ja):
         rec.category = "domestic"
+
+
+def normalize_url(url: str) -> str:
+    """Accept '10.1234/abc', 'doi:10.1234/abc' or 'https://...' and return a fetchable URL."""
+    url = url.strip().strip("<>")
+    if re.match(r"^(doi:)?10\.\d{4,9}/", url, re.I):
+        return "https://doi.org/" + re.sub(r"^doi:", "", url, flags=re.I)
+    if re.match(r"^(www\.|[a-z0-9-]+\.[a-z]{2,})", url, re.I) and "://" not in url:
+        return "https://" + url
+    return url
 
 
 def link_label(url: str, cfg: dict) -> str:
@@ -413,7 +433,7 @@ def link_label(url: str, cfg: dict) -> str:
 
 # --------------------------------------------------------------------------- driver
 def resolve(url: str, cfg: dict) -> Record:
-    url = url.strip()
+    url = normalize_url(url)
     rec = Record(source_url=url)
     host = urlparse(url).netloc.lower()
     is_doi_host = host.endswith("doi.org")
@@ -472,5 +492,10 @@ def resolve(url: str, cfg: dict) -> Record:
     if rec.doi:
         rec.links.append(("DOI", f"https://doi.org/{rec.doi}"))
     if not is_doi_host:
-        rec.links.append((link_label(url, cfg), url))
+        label = link_label(url, cfg)
+        # A publisher landing page for the same DOI adds nothing over the DOI link
+        # unless a config rule gives it a specific label (Full text, PDF, IPSJ DL ...).
+        redundant = bool(rec.doi) and label == "Link" and rec.doi.lower() in url.lower()
+        if not redundant:
+            rec.links.append((label, url))
     return rec
