@@ -6,6 +6,8 @@ body:
   - type: markdown
     attributes:
       value: |
+        ⚠️ この経路はワークフローファイルが未配置のため、まだ動きません（README の「使い方 1」参照）。手元では `start.bat` を使ってください。
+
         **URL を貼って Submit するだけ**で、GitHub Actions がメタデータを取得し、Publications に追記して公開します。
         結果はこの Issue にコメントで届きます。足りない情報があれば、このIssueを編集して下の項目を埋めると再実行されます。
         対応URL: DOI (doi.org / dl.acm.org / frontiersin.org / J-STAGE など) ・ 情報学広場 (ipsj.ixsq.nii.ac.jp) ・ 予稿PDF

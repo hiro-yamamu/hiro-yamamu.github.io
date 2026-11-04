@@ -48,7 +48,13 @@ start.bat      ← アプリ起動。URL を貼る → 「内容を確認」→ 
 `start.bat` は起動前に `git pull` して最新にし、公開時は commit & push まで行います。
 初回の push では Git がブラウザを開いて GitHub へのサインインを求めることがあります。
 
-### 使い方 1: GitHub の Issue から（スマホでも可）
+### 使い方 1: GitHub の Issue から（スマホでも可）※まだ有効になっていません
+
+この経路を動かすワークフローファイル `.github/workflows/add-publication.yml` は、GitHub の仕様で
+`workflow` 権限のあるトークンからしか置けず、この PC の認証ではアップロードできませんでした。
+ファイル自体はローカルのブランチ `workflow-pending` にあります。有効にするには、GitHub のサイトで
+**Add file → Upload files** から同ファイルを `.github/workflows/` に置くか、`gh auth refresh -s workflow`
+のあとで `git push origin workflow-pending:main` してください。それまで Issue を開いても何も起きません。
 
 1. リポジトリの **Issues → New issue → 「業績を追加 / Add publication」** を開く
 2. **URL** に論文のリンクを貼って Submit（他の欄は空でよい）
