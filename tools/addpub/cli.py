@@ -21,6 +21,7 @@ from .issue import parse_issue_body
 from .model import Record
 from .names import NameBook
 from .render import plain_text, render_li
+from .repo import GitError, Health, diagnose, format_health, git, push_main, repair
 from .site import DuplicateError, SiteError, eol_of, find_duplicate, insert_li, read, touch_dates, write
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -60,10 +61,20 @@ def fill_names(rec: Record, book: NameBook) -> None:
             rec.authors_ja = ja  # type: ignore[assignment]
 
 
-def run(url: str, overrides: dict, *, dry_run: bool, use_llm: bool, push: bool, commit: bool, ignore_duplicate: bool = False) -> dict:
+def run(url: str, overrides: dict, *, dry_run: bool, use_llm: bool, push: bool, commit: bool,
+        ignore_duplicate: bool = False, preflight: bool = True) -> dict:
     cfg = load_cfg()
     index_path = ROOT / "index.html"
     sitemap_path = ROOT / "sitemap.xml"
+    if push and preflight:
+        # Never write on top of a broken or out-of-date checkout: that is how a push "succeeds"
+        # locally and never reaches GitHub.
+        health = diagnose(fetch=True)
+        if health.behind and all(i.code == "behind" for i in health.issues):
+            git("pull", "-q", "--ff-only", "origin", "main")   # simply out of date: catch up silently
+            health = diagnose(fetch=False)
+        if not health.ok:
+            raise UnhealthyRepo(health)
     html = read(index_path)
     book = NameBook(html, cfg.get("author_names"))
 
@@ -117,41 +128,12 @@ def run(url: str, overrides: dict, *, dry_run: bool, use_llm: bool, push: bool, 
     return result
 
 
-class GitError(Exception):
-    pass
+class UnhealthyRepo(Exception):
+    """Raised before publishing when the local repository is not in a state that can be pushed."""
 
-
-def git(*args: str, check: bool = True) -> str:
-    """Run git in the repo without a console window; return stdout, raise GitError with stderr."""
-    flags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
-    p = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, encoding="utf-8",
-                       errors="replace", creationflags=flags, stdin=subprocess.DEVNULL)
-    if check and p.returncode != 0:
-        detail = (p.stderr or p.stdout or "").strip()
-        raise GitError(f"git {args[0]} failed (exit {p.returncode}):\n{detail}")
-    return p.stdout.strip()
-
-
-def push_main() -> str:
-    """Push HEAD to origin/main and prove it landed. Returns the pushed short SHA."""
-    branch = git("rev-parse", "--abbrev-ref", "HEAD")
-    git("fetch", "-q", "origin", branch)
-    local = git("rev-parse", "HEAD")
-    remote = git("rev-parse", f"origin/{branch}")
-    base = git("merge-base", "HEAD", f"origin/{branch}")
-    if remote != base:
-        # origin moved since we started: replay our commit on top of it
-        p = subprocess.run(["git", "rebase", "-q", f"origin/{branch}"], cwd=ROOT, capture_output=True, text=True,
-                           encoding="utf-8", errors="replace", creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
-        if p.returncode != 0:
-            git("rebase", "--abort", check=False)
-            raise GitError("GitHub 側の index.html と衝突しました。手元で git pull してから、もう一度試してください。\n" + (p.stderr or "").strip())
-        local = git("rev-parse", "HEAD")
-    git("push", "-q", "origin", f"HEAD:{branch}")
-    git("fetch", "-q", "origin", branch)
-    if git("rev-parse", f"origin/{branch}") != local:
-        raise GitError("push は完了しましたが、GitHub 上の main が更新されていません。git status を確認してください。")
-    return local[:7]
+    def __init__(self, health: Health):
+        super().__init__(health.summary())
+        self.health = health
 
 
 def short_title(title: str, limit: int = 72) -> str:
@@ -189,8 +171,25 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--json", action="store_true", help="machine readable output")
     p.add_argument("--ignore-duplicate", action="store_true", help=argparse.SUPPRESS)
     p.add_argument("--from-env", action="store_true", help="read ISSUE_BODY / INPUT_URL / INPUT_CATEGORY env vars (CI)")
+    p.add_argument("--doctor", action="store_true", help="check the local repository state and exit")
+    p.add_argument("--repair", action="store_true", help="fix what --doctor reports (abort stuck rebase, push/pull, park workflow commits)")
+    p.add_argument("--local-changes", choices=["publish", "discard", "keep"], default="keep",
+                   help="with --repair: what to do with uncommitted index.html edits (default keep)")
     p.add_argument("--comment-file", help="also write a Markdown summary (for the issue comment) to this path")
     a = p.parse_args(argv)
+
+    if a.doctor or a.repair:
+        health = diagnose(fetch=True)
+        print(format_health(health))
+        if a.repair and not health.ok:
+            try:
+                for line in repair(health, local_changes=a.local_changes if a.local_changes != "keep" else "ask", decide=lambda f: None):
+                    print(line)
+            except GitError as e:
+                print(f"ERROR: {e}")
+                return 1
+            health = diagnose(fetch=False)
+        return 0 if health.ok else 1
 
     overrides: dict = {}
     url = a.url
@@ -222,6 +221,10 @@ def main(argv: list[str] | None = None) -> int:
     except DuplicateError as e:
         result = {"status": "duplicate", "message": f"Already listed: {e}"}
         code = 2
+    except UnhealthyRepo as e:
+        result = {"status": "unhealthy", "message": format_health(e.health)
+                  + "\n\n`python -m tools.addpub --repair` または アプリの「修復」で直せます。"}
+        code = 1
     except (FetchError, SiteError, GitError) as e:
         result = {"status": "error", "message": str(e)}
         code = 1
